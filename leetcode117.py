@@ -11,6 +11,7 @@ class Node:
 # 其實和LC116的原理一樣，不過不能直接next過去，要按照順序去試
 # 以L找next爲例，if R then R, elif while next then next.R, next.L, next.next.L, .R一直試完，同層全部都沒有才算沒有next
 # 另一個考核點是find next root，要用marker記住第一個找到的下一層的node，這就是下一層的root
+# 最後記得next了之後就立刻出loop，防止之後被cover了
 # 有考慮到這兩個后，用if else慢慢寫就可以了
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
