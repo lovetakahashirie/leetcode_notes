@@ -5,7 +5,7 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    # 難1：要明白in pre post的構造
+    # 難1：要明白in pre post的構造，那你就會知道爲什麽要給你in pre / in post了
     # eg. inorder是 [左邊的nodes][中間的一個node][右邊的nodes]
     # 如果我想只要怎麽找出中間（才能切），我就需要pre/post，因爲中是靠邊的
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
