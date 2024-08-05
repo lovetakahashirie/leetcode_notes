@@ -1,0 +1,38 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def __init__(self):
+        self.prev = None
+        self.output = []
+        self.maxfreq = 0
+        self.curfreq = 0
+    def findMode(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return self.output
+        
+        self.findMode(root.left)
+        if self.prev:
+            if self.prev.val == root.val:
+                self.curfreq += 1
+            else:
+                self.curfreq = 1
+
+            # 不用考慮 < 反正也是pass
+            # 不能 if < then return，不然會skip了root.right的recur
+            # 想清楚什麽時候return，有沒有skip掉後面的東西
+            if self.curfreq > self.maxfreq:
+                self.output = [root.val] # flush
+                self.maxfreq +=1
+            elif self.curfreq == self.maxfreq:
+                self.output.append(root.val)
+        else:
+            self.curfreq = 1
+            self.maxfreq = 1
+            self.output.append(root.val)
+        self.prev = root
+        self.findMode(root.right)
+        return self.output
