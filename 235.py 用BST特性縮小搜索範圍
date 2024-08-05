@@ -1,0 +1,22 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root: # 其實這個可以跟else return root一樣，因爲root==None時，return root也是return None，但我還是不想這樣
+            return None
+        # 這裏就要用sorted的特性，如果pq都>，那就right
+        if min(p.val, q.val) > root.val:
+            return self.lowestCommonAncestor(root.right, p ,q)
+        # 如果pq都<，那就left
+        elif max(p.val, q.val) < root.val:
+            return self.lowestCommonAncestor(root.left, p ,q)
+        # 剩下的就2case
+        # 1. 1<-2<-3->4->5 p/q是3，其他在下面，那就直接return root（3）就可以
+        # 2. 1<-2<-3->4->5 p/q 分散在兩邊，那麽匯合點就是3，也是return root（3）就可以
+        else:
+            return root
