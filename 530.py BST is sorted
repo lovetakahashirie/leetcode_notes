@@ -1,0 +1,25 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+# 難1：看清楚是BST
+# 難2：知道BST的特質是sorted，要用inorder才能順序一個一個sorted去compare
+# 用了DFS inorder后，剩下就跟sorted array find min diff 一樣，直接compare上一個的diff，然後更新就可以
+class Solution:
+    def __init__(self):
+        self.allmin = float('inf') # 起手最大，保證第一輪一定可以compare
+        self.prev = None
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return None
+        self.getMinimumDifference(root.left)
+        if self.prev and self.allmin:
+            self.allmin = min(abs(self.prev.val-root.val), self.allmin)
+        # elif self.prev: # 你也可以把init allmin变成float('inf') 那就起手最大耶可以
+        #     self.allmin = abs(self.prev.val-root.val)
+        self.prev = root
+        self.getMinimumDifference(root.right)
+        return self.allmin
