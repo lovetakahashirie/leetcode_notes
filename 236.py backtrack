@@ -1,0 +1,30 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def __init__(self):
+        self.ploc = None
+        self.qloc = None
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # 這兩句可以放一起，但真的很難看，所以我分開
+        # 如果找到了，就return當下的，證明我有
+        if root==p or root==q:
+            return root
+        # 如果沒有就return None
+        if not root:
+            return None
+        
+        # 先處理左右
+        left = self.lowestCommonAncestor(root.left, p ,q)
+        right = self.lowestCommonAncestor(root.right, p ,q)
+        # 左右都做完了，就想，如果左右都有，代表pq在兩邊，那就return root
+        if left and right:
+            return root
+        # 如果其中一邊有，那就return 那邊
+        # 如果兩邊都None，就return None
+        return left or right
+        
