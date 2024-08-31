@@ -1,0 +1,11 @@
+-- 這個也可以用，但最好用join，因爲沒有explicitly join table就很煩
+-- select w1.id
+-- from weather w1, weather w2
+-- where w1.recorddate = date_add(w2.recorddate, interval 1 day)
+-- and w1.temperature > w2.temperature;
+
+-- 精髓是如果在join時做些操作去移位
+-- select w1.id
+-- from weather w1 join weather w2
+-- on w1.recorddate = date_add(w2.recorddate, interval 1 day)
+-- where w1.temperature > w2.temperature;
